@@ -1,9 +1,8 @@
-import { Footer } from "./Footer/Footer";
-import { NewTaskForm } from "./NewTaskForm/NewTaskForm";
-import Task from "./Task/Task";
-import { TaskList } from "./TaskList/TaskList";
+import { NewTaskForm } from "../NewTaskForm/NewTaskForm";
+import { TaskList } from "../TaskList/TaskList";
+import { Footer } from "../Footer/Footer";
 
-function App() {
+export default function App() {
   return (
     <section className='todoapp'>
       <header className='header'>
@@ -17,5 +16,3 @@ function App() {
     </section>
   );
 }
-
-export default App;
