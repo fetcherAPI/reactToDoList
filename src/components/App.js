@@ -1,3 +1,4 @@
+import { Footer } from "./Footer/Footer";
 import { NewTaskForm } from "./NewTaskForm/NewTaskForm";
 import Task from "./Task/Task";
 import { TaskList } from "./TaskList/TaskList";
@@ -11,6 +12,7 @@ function App() {
       </header>
       <section className='main'>
         <TaskList />
+        <Footer />
       </section>
     </section>
   );

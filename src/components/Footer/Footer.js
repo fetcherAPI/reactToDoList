@@ -1,3 +1,5 @@
+import "./footer.css";
+
 export let Footer = () => {
   return (
     <footer className='footer'>
