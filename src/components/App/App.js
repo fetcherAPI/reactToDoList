@@ -31,13 +31,6 @@ export default class App extends Component {
           isCompleted: false,
           isEddit: false,
         },
-        {
-          id: 4,
-          name: "get up early",
-          status: "completed",
-          isCompleted: true,
-          isEddit: false,
-        },
       ],
     };
 
@@ -45,6 +38,16 @@ export default class App extends Component {
     this.deleteTask = this.deleteTask.bind(this);
     this.addTask = this.addTask.bind(this);
     this.onChangeStatusToDone = this.onChangeStatusToDone.bind(this);
+    this.onChangeStatusToEddit = this.onChangeStatusToEddit.bind(this);
+  }
+
+  createNewTask(taskName) {
+    return {
+      id: ++this.maxId,
+      name: taskName,
+      status: "",
+      isCompleted: false,
+    };
   }
 
   deleteTask(id) {
@@ -61,12 +64,13 @@ export default class App extends Component {
     });
   }
 
-  addTask(value) {
+  addTask(taskName) {
     this.setState(({ tasks }) => {
       const newTask = {
         id: ++this.maxId,
-        name: value,
+        name: taskName,
         status: "",
+        isCompleted: false,
       };
 
       let newTaskList = [...tasks, newTask];
@@ -80,7 +84,10 @@ export default class App extends Component {
   onChangeStatusToDone = (id) => {
     this.setState(({ tasks }) => {
       const index = tasks.findIndex((task) => task.id === id);
-      const newTask = { ...tasks[index], isCompleted: !tasks[index].like };
+      const newTask = {
+        ...tasks[index],
+        isCompleted: !tasks[index].isCompleted,
+      };
       const newTasksList = [
         ...tasks.slice(0, index),
         newTask,
@@ -92,10 +99,20 @@ export default class App extends Component {
     });
   };
 
-  changeStatusToEddit = () => {
-    this.setState(({ isEddit }) => {
+  onChangeStatusToEddit = (id) => {
+    this.setState(({ tasks }) => {
+      const index = tasks.findIndex((task) => task.id === id);
+      const newTask = {
+        ...tasks[index],
+        isEddit: !tasks[index].isEddit,
+      };
+      const newTasksList = [
+        ...tasks.slice(0, index),
+        newTask,
+        ...tasks.slice(index + 1),
+      ];
       return {
-        isEddit: !isEddit,
+        tasks: newTasksList,
       };
     });
   };
@@ -113,12 +130,12 @@ export default class App extends Component {
               tasksList={this.state.tasks}
               onDelete={this.deleteTask}
               onChangeStatusToDone={this.onChangeStatusToDone}
+              onChangeStatusToEddit={this.onChangeStatusToEddit}
             />
             <Footer tasksList={this.state.tasks} />
           </section>
         </section>
         <Counter />
-        <div>{`${this.state.tasks[2].isCompleted}`}</div>
       </div>
     );
   }

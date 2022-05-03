@@ -3,30 +3,15 @@ import { formatDistance, subDays } from "date-fns";
 import { Component } from "react";
 
 export class Task extends Component {
-  // state = {
-  //   isDone: false,
-  //   isEddit: false,
-  // };
-
-  // changeStatusToDone = () => {
-  //   this.setState(({ isDone }) => {
-  //     return {
-  //       isDone: !isDone,
-  //     };
-  //   });
-  // };
-
-  // changeStatusToEddit = () => {
-  //   this.setState(({ isEddit }) => {
-  //     return {
-  //       isEddit: !isEddit,
-  //     };
-  //   });
-  // };
-
   render() {
-    let { taskName, onDelete, onChangeStatusToDone, isCompleted, isEddit } =
-      this.props;
+    let {
+      taskName,
+      onDelete,
+      onChangeStatusToDone,
+      onChangeStatusToEddit,
+      isCompleted,
+      isEddit,
+    } = this.props;
 
     let className = "";
 
@@ -51,7 +36,7 @@ export class Task extends Component {
           </label>
           <button
             className='icon icon-edit'
-            onClick={this.changeStatusToEddit}
+            onClick={onChangeStatusToEddit}
           ></button>
           <button className='icon icon-destroy' onClick={onDelete}></button>
         </div>

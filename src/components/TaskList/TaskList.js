@@ -1,7 +1,12 @@
 import Task from "../Task/Task";
 import "./tasklist.css";
 
-export let TaskList = ({ tasksList, onDelete, onChangeStatusToDone }) => {
+export let TaskList = ({
+  tasksList,
+  onDelete,
+  onChangeStatusToDone,
+  onChangeStatusToEddit,
+}) => {
   let elements = tasksList.map((item) => {
     let { id, name, status, isCompleted, isEddit } = item;
     return (
@@ -14,6 +19,7 @@ export let TaskList = ({ tasksList, onDelete, onChangeStatusToDone }) => {
         isEddit={isEddit}
         onDelete={() => onDelete(id)}
         onChangeStatusToDone={() => onChangeStatusToDone(id)}
+        onChangeStatusToEddit={() => onChangeStatusToEddit(id)}
       />
     );
   });
