@@ -5,8 +5,8 @@ import { Counter } from "../Counter";
 import { Component } from "react";
 
 export default class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       tasks: [
@@ -15,42 +15,44 @@ export default class App extends Component {
           name: "Read a book",
           status: "",
           isCompleted: false,
-          isEddit: false,
+          isEdit: false,
         },
         {
           id: 2,
           name: "learn React",
           status: "",
           isCompleted: false,
-          isEddit: false,
+          isEdit: false,
         },
         {
           id: 3,
           name: "get up early",
           status: "",
           isCompleted: false,
-          isEddit: false,
+          isEdit: false,
         },
       ],
     };
-
+    this.a = this.createNewTask("new Task");
     this.maxId = 5;
     this.deleteTask = this.deleteTask.bind(this);
     this.addTask = this.addTask.bind(this);
     this.onChangeStatusToDone = this.onChangeStatusToDone.bind(this);
-    this.onChangeStatusToEddit = this.onChangeStatusToEddit.bind(this);
+    this.onChangeStatusToEdit = this.onChangeStatusToEdit.bind(this);
   }
 
   createNewTask(taskName) {
     return {
-      id: ++this.maxId,
       name: taskName,
+      id: new Date().getTime(),
       status: "",
       isCompleted: false,
+      isEdit: false,
     };
   }
 
   deleteTask(id) {
+    console.log("this.a", this.a);
     this.setState(({ tasks }) => {
       const index = tasks.findIndex((task) => task.id === id);
       const newTasksList = [
@@ -66,15 +68,9 @@ export default class App extends Component {
 
   addTask(taskName) {
     this.setState(({ tasks }) => {
-      const newTask = {
-        id: ++this.maxId,
-        name: taskName,
-        status: "",
-        isCompleted: false,
-      };
-
+      const newTask = this.createNewTask(taskName);
       let newTaskList = [...tasks, newTask];
-
+      console.log("newTask", newTask);
       return {
         tasks: newTaskList,
       };
@@ -88,33 +84,27 @@ export default class App extends Component {
         ...tasks[index],
         isCompleted: !tasks[index].isCompleted,
       };
-      const newTasksList = [
-        ...tasks.slice(0, index),
-        newTask,
-        ...tasks.slice(index + 1),
-      ];
+
       return {
-        tasks: newTasksList,
+        tasks: [...tasks.slice(0, index), newTask, ...tasks.slice(index + 1)],
       };
     });
   };
 
-  onChangeStatusToEddit = (id) => {
+  onChangeStatusToEdit = (id) => {
+    console.log("this.state", this.state);
     this.setState(({ tasks }) => {
       const index = tasks.findIndex((task) => task.id === id);
       const newTask = {
         ...tasks[index],
-        isEddit: !tasks[index].isEddit,
+        isEdit: !tasks[index].isEdit,
       };
-      const newTasksList = [
-        ...tasks.slice(0, index),
-        newTask,
-        ...tasks.slice(index + 1),
-      ];
+
       return {
-        tasks: newTasksList,
+        tasks: [...tasks.slice(0, index), newTask, ...tasks.slice(index + 1)],
       };
     });
+    console.log("this.state", this.state);
   };
 
   render() {
@@ -127,10 +117,11 @@ export default class App extends Component {
           </header>
           <section className='main'>
             <TaskList
+              onAdd={this.addTask}
               tasksList={this.state.tasks}
               onDelete={this.deleteTask}
               onChangeStatusToDone={this.onChangeStatusToDone}
-              onChangeStatusToEddit={this.onChangeStatusToEddit}
+              onChangeStatusToEdit={this.onChangeStatusToEdit}
             />
             <Footer tasksList={this.state.tasks} />
           </section>

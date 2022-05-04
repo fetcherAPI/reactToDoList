@@ -4,26 +4,24 @@ import "./tasklist.css";
 export let TaskList = ({
   tasksList,
   onDelete,
+  onAdd,
   onChangeStatusToDone,
-  onChangeStatusToEddit,
+  onChangeStatusToEdit,
 }) => {
-  let elements = tasksList.map((item) => {
-    let { id, name, status, isCompleted, isEddit } = item;
-    return (
-      <Task
-        key={id}
-        status={status}
-        taskName={name}
-        tasksList={tasksList}
-        isCompleted={isCompleted}
-        isEddit={isEddit}
-        onDelete={() => onDelete(id)}
-        onChangeStatusToDone={() => onChangeStatusToDone(id)}
-        onChangeStatusToEddit={() => onChangeStatusToEddit(id)}
-      />
-    );
-  });
-  let activeTasks = tasksList.filter((task) => task.isCompleted === true);
-  console.log("", activeTasks);
-  return <ul className='todo-list'>{elements}</ul>;
+  return (
+    <ul className='todo-list'>
+      {tasksList.map((task) => (
+        <Task
+          key={task.id}
+          taskName={task.name}
+          isCompleted={task.isCompleted}
+          isEdit={task.isEdit}
+          onAdd={onAdd}
+          onDelete={() => onDelete(task.id)}
+          onChangeStatusToDone={() => onChangeStatusToDone(task.id)}
+          onChangeStatusToEdit={() => onChangeStatusToEdit(task.id)}
+        />
+      ))}
+    </ul>
+  );
 };
