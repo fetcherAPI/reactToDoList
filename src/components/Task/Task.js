@@ -7,17 +7,21 @@ export class Task extends Component {
     let {
       taskName,
       onDelete,
+
       onChangeStatusToDone,
-      onChangeStatusToEddit,
+      onChangeStatusToEdit,
       isCompleted,
-      isEddit,
+      isEdit,
     } = this.props;
 
     let className = "";
-
-    isCompleted ? (className += "completed") : (className += "");
-    isEddit ? (className += "editing") : (className += "");
-
+    if (isCompleted) {
+      className += "completed";
+    }
+    if (isEdit) {
+      className += " editing";
+    }
+    console.log(className);
     return (
       <li className={className}>
         <div className='view'>
@@ -36,11 +40,11 @@ export class Task extends Component {
           </label>
           <button
             className='icon icon-edit'
-            onClick={onChangeStatusToEddit}
+            onClick={onChangeStatusToEdit}
           ></button>
           <button className='icon icon-destroy' onClick={onDelete}></button>
         </div>
-        {isEddit ? <input type='text' className='edit' /> : null}
+        {isEdit ? <input type='text' className='edit' /> : null}
       </li>
     );
   }
