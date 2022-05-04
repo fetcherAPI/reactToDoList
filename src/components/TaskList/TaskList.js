@@ -1,13 +1,7 @@
 import Task from "../Task/Task";
 import "./tasklist.css";
 
-export let TaskList = ({
-  tasksList,
-  onDelete,
-  onAdd,
-  onChangeStatusToDone,
-  onChangeStatusToEdit,
-}) => {
+export let TaskList = ({ tasksList, onDelete, onAdd, onDone, onEdit }) => {
   return (
     <ul className='todo-list'>
       {tasksList.map((task) => (
@@ -18,8 +12,8 @@ export let TaskList = ({
           isEdit={task.isEdit}
           onAdd={onAdd}
           onDelete={() => onDelete(task.id)}
-          onChangeStatusToDone={() => onChangeStatusToDone(task.id)}
-          onChangeStatusToEdit={() => onChangeStatusToEdit(task.id)}
+          onDone={() => onDone(task.id)}
+          onEdit={() => onEdit(task.id)}
         />
       ))}
     </ul>
