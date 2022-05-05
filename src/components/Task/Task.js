@@ -7,7 +7,6 @@ export class Task extends Component {
   static propTypes = {
     taskName: PropTypes.string.isRequired,
     isCompleted: PropTypes.bool,
-    isEdit: PropTypes.bool,
     dateCreated: PropTypes.instanceOf(Date),
     onDelete: PropTypes.func.isRequired,
     onDone: PropTypes.func.isRequired,
@@ -17,12 +16,13 @@ export class Task extends Component {
 
   static defaultProps = {
     isCompleted: false,
-    isEdit: false,
+
     dateCreated: new Date(),
   };
 
   state = {
-    taskName: "",
+    newTaskName: "",
+    isEdit: false,
   };
 
   editTask = (e) => {
@@ -31,17 +31,32 @@ export class Task extends Component {
     });
   };
 
+  editToggle = () => {
+    this.setState((state) => ({ isEdit: !state.isEdit }));
+  };
+
+  onChangeTaskName = (e) => {
+    this.setState(() => ({ newTaskName: e.target.value }));
+  };
+
+  setNewLabel = (e, editTaskName, newTaskName) => {
+    e.preventDefault();
+    editTaskName(newTaskName);
+    this.editToggle();
+  };
   render() {
     let {
       taskName,
       onDelete,
       onDone,
-      onEdit,
-      onAdd,
+
       isCompleted,
-      isEdit,
+
       dateCreated,
+      editTaskName,
     } = this.props;
+
+    const { isEdit, newTaskName } = this.state;
 
     let className = "";
     if (isCompleted) {
@@ -53,32 +68,27 @@ export class Task extends Component {
 
     return (
       <li className={className}>
-        <div className="view">
-          <input className="toggle" type="checkbox" onClick={onDone} />
+        <div className='view'>
+          <input className='toggle' type='checkbox' onClick={onDone} />
           <label>
-            <span className="description">{taskName}</span>
+            <span className='description'>{taskName}</span>
             <Timer dateCreated={dateCreated} />
           </label>
 
-          <button className="icon icon-edit" onClick={onEdit}></button>
-          <button className="icon icon-destroy" onClick={onDelete}></button>
+          <button className='icon icon-edit' onClick={this.editToggle}></button>
+          <button className='icon icon-destroy' onClick={onDelete}></button>
         </div>
         {isEdit ? (
           <>
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                onAdd(this.state.taskName);
-              }}
+              onSubmit={(e) => this.setNewLabel(e, editTaskName, newTaskName)}
             >
               <input
-                type="text"
-                className="edit"
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    this.editTask(e);
-                  }
-                }}
+                type='text'
+                className='edit'
+                defaultValue={taskName}
+                onChange={this.onChangeTaskName}
+                onClick={this.onChangeTaskName}
                 autoFocus
               />
             </form>
@@ -112,7 +122,7 @@ class Timer extends Component {
   render() {
     let { dateCreated } = this.props;
     return (
-      <span className="created">
+      <span className='created'>
         created {formatDistanceToNow(dateCreated, { addSuffix: true })}
       </span>
     );

@@ -2,9 +2,16 @@ import Task from "../Task/Task";
 import "./tasklist.css";
 import PropTypes from "prop-types";
 
-export let TaskList = ({ tasksList, onDelete, onAdd, onDone, onEdit }) => {
+export let TaskList = ({
+  tasksList,
+  onDelete,
+  onAdd,
+  onDone,
+  onEdit,
+  editTaskName,
+}) => {
   return (
-    <ul className="todo-list">
+    <ul className='todo-list'>
       {tasksList.map((task) => (
         <Task
           key={task.id}
@@ -16,6 +23,7 @@ export let TaskList = ({ tasksList, onDelete, onAdd, onDone, onEdit }) => {
           onDone={() => onDone(task.id)}
           onEdit={() => onEdit(task.id)}
           dateCreated={task.dateCreated}
+          editTaskName={(value) => editTaskName(task.id, value)}
         />
       ))}
     </ul>

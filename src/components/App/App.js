@@ -107,24 +107,35 @@ export default class App extends Component {
     });
   };
 
+  editTaskName = (id, name) => {
+    this.setState(({ tasks }) => {
+      const index = tasks.findIndex((task) => task.id === id);
+      const newItem = { ...tasks[index], name };
+      return {
+        tasks: [...tasks.slice(0, index), newItem, ...tasks.slice(index + 1)],
+      };
+    });
+  };
+
   render() {
     const { tasks, filter } = this.state;
     const visibleTasks = this.filterTasks(tasks, filter);
 
     return (
       <div>
-        <section className="todoapp">
-          <header className="header">
+        <section className='todoapp'>
+          <header className='header'>
             <h1>todos</h1>
             <NewTaskForm onAdd={this.addTask} />
           </header>
-          <section className="main">
+          <section className='main'>
             <TaskList
               onAdd={this.addTask}
               tasksList={visibleTasks}
               onDelete={this.deleteTask}
               onDone={this.onDone}
               onEdit={this.onEdit}
+              editTaskName={this.editTaskName}
             />
             <Footer
               tasksList={this.state.tasks}
