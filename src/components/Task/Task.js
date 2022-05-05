@@ -53,15 +53,15 @@ export class Task extends Component {
 
     return (
       <li className={className}>
-        <div className='view'>
-          <input className='toggle' type='checkbox' onClick={onDone} />
+        <div className="view">
+          <input className="toggle" type="checkbox" onClick={onDone} />
           <label>
-            <span className='description'>{taskName}</span>
+            <span className="description">{taskName}</span>
             <Timer dateCreated={dateCreated} />
           </label>
 
-          <button className='icon icon-edit' onClick={onEdit}></button>
-          <button className='icon icon-destroy' onClick={onDelete}></button>
+          <button className="icon icon-edit" onClick={onEdit}></button>
+          <button className="icon icon-destroy" onClick={onDelete}></button>
         </div>
         {isEdit ? (
           <>
@@ -72,8 +72,8 @@ export class Task extends Component {
               }}
             >
               <input
-                type='text'
-                className='edit'
+                type="text"
+                className="edit"
                 onKeyPress={(e) => {
                   if (e.key === "Enter") {
                     this.editTask(e);
@@ -112,7 +112,7 @@ class Timer extends Component {
   render() {
     let { dateCreated } = this.props;
     return (
-      <span className='created'>
+      <span className="created">
         created {formatDistanceToNow(dateCreated, { addSuffix: true })}
       </span>
     );

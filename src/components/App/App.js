@@ -113,12 +113,12 @@ export default class App extends Component {
 
     return (
       <div>
-        <section className='todoapp'>
-          <header className='header'>
+        <section className="todoapp">
+          <header className="header">
             <h1>todos</h1>
             <NewTaskForm onAdd={this.addTask} />
           </header>
-          <section className='main'>
+          <section className="main">
             <TaskList
               onAdd={this.addTask}
               tasksList={visibleTasks}

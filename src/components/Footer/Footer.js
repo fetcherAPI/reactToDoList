@@ -48,10 +48,10 @@ export class Footer extends Component {
     });
 
     return (
-      <footer className='footer'>
-        <span className='todo-count'>{activeTasksCount} items left</span>
-        <ul className='filters'>{buttons}</ul>
-        <button className='clear-completed' onClick={onDelete}>
+      <footer className="footer">
+        <span className="todo-count">{activeTasksCount} items left</span>
+        <ul className="filters">{buttons}</ul>
+        <button className="clear-completed" onClick={onDelete}>
           Clear completed
         </button>
       </footer>

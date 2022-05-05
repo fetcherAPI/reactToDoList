@@ -36,10 +36,10 @@ export class NewTaskForm extends Component {
 
   render() {
     return (
-      <form className='new-task-form' onSubmit={this.handleSubmit}>
+      <form className="new-task-form" onSubmit={this.handleSubmit}>
         <input
-          className='new-todo'
-          placeholder='What needs to be done?'
+          className="new-todo"
+          placeholder="What needs to be done?"
           autoFocus
           onChange={this.handleChange}
           value={this.state.taskName}

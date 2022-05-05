@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 export let TaskList = ({ tasksList, onDelete, onAdd, onDone, onEdit }) => {
   return (
-    <ul className='todo-list'>
+    <ul className="todo-list">
       {tasksList.map((task) => (
         <Task
           key={task.id}
