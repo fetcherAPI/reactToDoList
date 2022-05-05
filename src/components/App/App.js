@@ -10,7 +10,7 @@ export default class App extends Component {
 
     this.state = {
       tasks: [],
-      fillter: "all",
+      filter: "all",
     };
     this.deleteTask = this.deleteTask.bind(this);
     this.addTask = this.addTask.bind(this);
@@ -23,6 +23,7 @@ export default class App extends Component {
       name: taskName,
       id: new Date().getTime(),
       status: "",
+      dateCreated: new Date(),
       isCompleted: false,
       isEdit: false,
     };
@@ -70,7 +71,7 @@ export default class App extends Component {
     });
   };
 
-  fillterTasks(tasks, fillter) {
+  filterTasks(tasks, fillter) {
     switch (fillter) {
       case "all":
         return tasks;
@@ -91,7 +92,25 @@ export default class App extends Component {
     });
   };
 
+  onFilterChange = (filter) => {
+    this.setState({
+      filter,
+    });
+  };
+
+  deleteCompleted = () => {
+    this.setState(({ tasks }) => {
+      const newTasksList = tasks.filter((item) => !item.isCompleted);
+      return {
+        tasks: newTasksList,
+      };
+    });
+  };
+
   render() {
+    const { tasks, filter } = this.state;
+    const visibleTasks = this.filterTasks(tasks, filter);
+
     return (
       <div>
         <section className='todoapp'>
@@ -102,12 +121,17 @@ export default class App extends Component {
           <section className='main'>
             <TaskList
               onAdd={this.addTask}
-              tasksList={this.state.tasks}
+              tasksList={visibleTasks}
               onDelete={this.deleteTask}
               onDone={this.onDone}
               onEdit={this.onEdit}
             />
-            <Footer tasksList={this.state.tasks} />
+            <Footer
+              tasksList={this.state.tasks}
+              filter={filter}
+              onFilterChange={this.onFilterChange}
+              onDelete={this.deleteCompleted}
+            />
           </section>
         </section>
         <Counter />
