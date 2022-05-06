@@ -1,7 +1,7 @@
-import "./Task.css";
-import { formatDistanceToNow } from "date-fns";
-import { Component } from "react";
-import PropTypes from "prop-types";
+import './Task.css';
+import { formatDistanceToNow } from 'date-fns';
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class Task extends Component {
   static propTypes = {
@@ -20,7 +20,7 @@ export class Task extends Component {
   };
 
   state = {
-    newTaskName: "",
+    newTaskName: '',
     isEdit: false,
   };
 
@@ -44,17 +44,16 @@ export class Task extends Component {
     this.editToggle();
   };
   render() {
-    let { taskName, onDelete, onDone, isCompleted, dateCreated, editTaskName } =
-      this.props;
+    let { taskName, onDelete, onDone, isCompleted, dateCreated, editTaskName } = this.props;
 
     const { isEdit, newTaskName } = this.state;
 
-    let className = "";
+    let className = '';
     if (isCompleted) {
-      className += "completed";
+      className += 'completed';
     }
     if (isEdit) {
-      className += " editing";
+      className += ' editing';
     }
 
     return (
@@ -71,9 +70,7 @@ export class Task extends Component {
         </div>
         {isEdit ? (
           <>
-            <form
-              onSubmit={(e) => this.setNewLabel(e, editTaskName, newTaskName)}
-            >
+            <form onSubmit={(e) => this.setNewLabel(e, editTaskName, newTaskName)}>
               <input
                 type="text"
                 className="edit"
@@ -112,11 +109,7 @@ class Timer extends Component {
 
   render() {
     let { dateCreated } = this.props;
-    return (
-      <span className="created">
-        created {formatDistanceToNow(dateCreated, { addSuffix: true })}
-      </span>
-    );
+    return <span className="created">created {formatDistanceToNow(dateCreated, { addSuffix: true })}</span>;
   }
 }
 

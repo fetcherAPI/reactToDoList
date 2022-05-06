@@ -1,6 +1,6 @@
-import { Component } from "react";
-import "./newTaskForm.css";
-import PropTypes from "prop-types";
+import { Component } from 'react';
+import './newTaskForm.css';
+import PropTypes from 'prop-types';
 
 export class NewTaskForm extends Component {
   static propTypes = {
@@ -14,7 +14,7 @@ export class NewTaskForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      taskName: "",
+      taskName: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,7 +30,7 @@ export class NewTaskForm extends Component {
     event.preventDefault();
     this.props.onAdd(this.state.taskName);
     this.setState({
-      taskName: "",
+      taskName: '',
     });
   }
 

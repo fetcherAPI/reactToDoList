@@ -1,7 +1,7 @@
-import { NewTaskForm } from "../NewTaskForm/NewTaskForm";
-import { TaskList } from "../TaskList/TaskList";
-import { Footer } from "../Footer/Footer";
-import { Component } from "react";
+import { NewTaskForm } from '../NewTaskForm/NewTaskForm';
+import { TaskList } from '../TaskList/TaskList';
+import { Footer } from '../Footer/Footer';
+import { Component } from 'react';
 
 export default class App extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ export default class App extends Component {
 
     this.state = {
       tasks: [],
-      filter: "all",
+      filter: 'all',
     };
     this.deleteTask = this.deleteTask.bind(this);
     this.addTask = this.addTask.bind(this);
@@ -21,7 +21,7 @@ export default class App extends Component {
     return {
       name: taskName,
       id: new Date().getTime(),
-      status: "",
+      status: '',
       dateCreated: new Date(),
       isCompleted: false,
       isEdit: false,
@@ -31,10 +31,7 @@ export default class App extends Component {
   deleteTask(id) {
     this.setState(({ tasks }) => {
       const index = tasks.findIndex((task) => task.id === id);
-      const newTasksList = [
-        ...tasks.slice(0, index),
-        ...tasks.slice(index + 1),
-      ];
+      const newTasksList = [...tasks.slice(0, index), ...tasks.slice(index + 1)];
 
       return {
         tasks: newTasksList,
@@ -65,18 +62,18 @@ export default class App extends Component {
   onDone = (id) => {
     this.setState(({ tasks }) => {
       return {
-        tasks: this.changeStatus(tasks, id, "isCompleted"),
+        tasks: this.changeStatus(tasks, id, 'isCompleted'),
       };
     });
   };
 
   filterTasks(tasks, fillter) {
     switch (fillter) {
-      case "all":
+      case 'all':
         return tasks;
-      case "active":
+      case 'active':
         return tasks.filter((task) => !task.isCompleted);
-      case "completed":
+      case 'completed':
         return tasks.filter((task) => task.isCompleted);
       default:
         return tasks;

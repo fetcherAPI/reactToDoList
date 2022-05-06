@@ -1,6 +1,6 @@
-import { Component } from "react";
-import "./footer.css";
-import PropTypes from "prop-types";
+import { Component } from 'react';
+import './footer.css';
+import PropTypes from 'prop-types';
 
 export class Footer extends Component {
   static propTypes = {
@@ -19,24 +19,22 @@ export class Footer extends Component {
   };
 
   static defaultProps = {
-    filter: "all",
+    filter: 'all',
   };
 
   buttons = [
-    { name: "all", label: "All" },
-    { name: "active", label: "Active" },
-    { name: "completed", label: "Completed" },
+    { name: 'all', label: 'All' },
+    { name: 'active', label: 'Active' },
+    { name: 'completed', label: 'Completed' },
   ];
   render() {
     let { tasksList, filter, onFilterChange, onDelete } = this.props;
 
-    let activeTasksCount = tasksList.filter(
-      (task) => task.isCompleted === false
-    ).length;
+    let activeTasksCount = tasksList.filter((task) => task.isCompleted === false).length;
 
     const buttons = this.buttons.map(({ name, label }) => {
       const isActive = filter === name;
-      const className = isActive ? "selected" : "";
+      const className = isActive ? 'selected' : '';
       return (
         <li key={name}>
           <button className={className} onClick={() => onFilterChange(name)}>

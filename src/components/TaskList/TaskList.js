@@ -1,16 +1,10 @@
-import Task from "../Task/Task.js";
-import "./tasklist.css";
-import PropTypes from "prop-types";
+import Task from '../Task/Task.js';
+import './tasklist.css';
+import PropTypes from 'prop-types';
 
-export let TaskList = ({
-  tasksList,
-  onDelete,
-  onAdd,
-  onDone,
-  editTaskName,
-}) => {
+export let TaskList = ({ tasksList, onDelete, onAdd, onDone, editTaskName }) => {
   return (
-    <ul className='todo-list'>
+    <ul className="todo-list">
       {tasksList.map((task) => (
         <Task
           key={task.id}
