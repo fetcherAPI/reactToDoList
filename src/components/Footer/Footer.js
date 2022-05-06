@@ -29,7 +29,6 @@ export class Footer extends Component {
   ];
   render() {
     let { tasksList, filter, onFilterChange, onDelete } = this.props;
-    console.log(filter);
 
     let activeTasksCount = tasksList.filter(
       (task) => task.isCompleted === false

@@ -1,4 +1,4 @@
-import Task from "../Task/Task";
+import Task from "../Task/Task.js";
 import "./tasklist.css";
 import PropTypes from "prop-types";
 
@@ -7,7 +7,6 @@ export let TaskList = ({
   onDelete,
   onAdd,
   onDone,
-  onEdit,
   editTaskName,
 }) => {
   return (
@@ -21,7 +20,6 @@ export let TaskList = ({
           onAdd={onAdd}
           onDelete={() => onDelete(task.id)}
           onDone={() => onDone(task.id)}
-          onEdit={() => onEdit(task.id)}
           dateCreated={task.dateCreated}
           editTaskName={(value) => editTaskName(task.id, value)}
         />
@@ -36,12 +34,10 @@ TaskList.propTypes = {
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       isCompleted: PropTypes.bool.isRequired,
-      isEdit: PropTypes.bool.isRequired,
       dateCreated: PropTypes.instanceOf(Date).isRequired,
     })
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
   onAdd: PropTypes.func.isRequired,
   onDone: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired,
 };

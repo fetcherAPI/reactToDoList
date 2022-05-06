@@ -83,14 +83,6 @@ export default class App extends Component {
     }
   }
 
-  onEdit = (id) => {
-    this.setState(({ tasks }) => {
-      return {
-        tasks: this.changeStatus(tasks, id, "isEdit"),
-      };
-    });
-  };
-
   onFilterChange = (filter) => {
     this.setState({
       filter,
@@ -122,18 +114,17 @@ export default class App extends Component {
 
     return (
       <div>
-        <section className='todoapp'>
-          <header className='header'>
+        <section className="todoapp">
+          <header className="header">
             <h1>todos</h1>
             <NewTaskForm onAdd={this.addTask} />
           </header>
-          <section className='main'>
+          <section className="main">
             <TaskList
               onAdd={this.addTask}
               tasksList={visibleTasks}
               onDelete={this.deleteTask}
               onDone={this.onDone}
-              onEdit={this.onEdit}
               editTaskName={this.editTaskName}
             />
             <Footer

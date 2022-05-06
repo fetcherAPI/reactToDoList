@@ -16,7 +16,6 @@ export class Task extends Component {
 
   static defaultProps = {
     isCompleted: false,
-
     dateCreated: new Date(),
   };
 
@@ -45,16 +44,8 @@ export class Task extends Component {
     this.editToggle();
   };
   render() {
-    let {
-      taskName,
-      onDelete,
-      onDone,
-
-      isCompleted,
-
-      dateCreated,
-      editTaskName,
-    } = this.props;
+    let { taskName, onDelete, onDone, isCompleted, dateCreated, editTaskName } =
+      this.props;
 
     const { isEdit, newTaskName } = this.state;
 
@@ -68,15 +59,15 @@ export class Task extends Component {
 
     return (
       <li className={className}>
-        <div className='view'>
-          <input className='toggle' type='checkbox' onClick={onDone} />
+        <div className="view">
+          <input className="toggle" type="checkbox" onClick={onDone} />
           <label>
-            <span className='description'>{taskName}</span>
+            <span className="description">{taskName}</span>
             <Timer dateCreated={dateCreated} />
           </label>
 
-          <button className='icon icon-edit' onClick={this.editToggle}></button>
-          <button className='icon icon-destroy' onClick={onDelete}></button>
+          <button className="icon icon-edit" onClick={this.editToggle}></button>
+          <button className="icon icon-destroy" onClick={onDelete}></button>
         </div>
         {isEdit ? (
           <>
@@ -84,8 +75,8 @@ export class Task extends Component {
               onSubmit={(e) => this.setNewLabel(e, editTaskName, newTaskName)}
             >
               <input
-                type='text'
-                className='edit'
+                type="text"
+                className="edit"
                 defaultValue={taskName}
                 onChange={this.onChangeTaskName}
                 onClick={this.onChangeTaskName}
@@ -122,7 +113,7 @@ class Timer extends Component {
   render() {
     let { dateCreated } = this.props;
     return (
-      <span className='created'>
+      <span className="created">
         created {formatDistanceToNow(dateCreated, { addSuffix: true })}
       </span>
     );
