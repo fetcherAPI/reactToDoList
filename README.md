@@ -1,5 +1,8 @@
 # Getting Started with Create React App
 
+ссылка на todo list
+https://react-to-do-phi.vercel.app/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

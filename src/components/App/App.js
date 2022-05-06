@@ -1,7 +1,6 @@
 import { NewTaskForm } from "../NewTaskForm/NewTaskForm";
 import { TaskList } from "../TaskList/TaskList";
 import { Footer } from "../Footer/Footer";
-import { Counter } from "../Counter";
 import { Component } from "react";
 
 export default class App extends Component {
@@ -145,7 +144,6 @@ export default class App extends Component {
             />
           </section>
         </section>
-        <Counter />
       </div>
     );
   }
