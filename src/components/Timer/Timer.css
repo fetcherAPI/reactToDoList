@@ -1,0 +1,33 @@
+.description--timer {
+  background-color: aqua;
+  font-size: 13px;
+  color: gray;
+  width: 17%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 28px;
+}
+.icon-play {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+.icon-pause {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.icon-play,
+.icon-pause:hover {
+  cursor: pointer;
+}
+
+.icon-pause:after {
+  content: "⏸";
+}
+
+.icon-play:after {
+  content: "▶";
+}
