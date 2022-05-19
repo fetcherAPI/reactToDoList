@@ -25,3 +25,7 @@ yarn-error.log*
 
 Counter.jsx
 .vercel
+
+
+.eslintrc
+.prettierrc

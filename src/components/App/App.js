@@ -1,7 +1,8 @@
-import { NewTaskForm } from '../NewTaskForm/NewTaskForm';
-import { TaskList } from '../TaskList/TaskList';
-import { Footer } from '../Footer/Footer';
-import { Component } from 'react';
+import { Component } from "react";
+
+import { NewTaskForm } from "../NewTaskForm/NewTaskForm";
+import { TaskList } from "../TaskList/TaskList";
+import { Footer } from "../Footer/Footer";
 
 export default class App extends Component {
   constructor(props) {
@@ -9,19 +10,23 @@ export default class App extends Component {
 
     this.state = {
       tasks: [],
-      filter: 'all',
+      filter: "all",
     };
     this.deleteTask = this.deleteTask.bind(this);
     this.addTask = this.addTask.bind(this);
     this.onDone = this.onDone.bind(this);
     this.onEdit = this.onEdit.bind(this);
+    this.onFilterChange = this.onFilterChange.bind(this);
+    this.deleteCompleted = this.deleteCompleted.bind(this);
+    this.editTaskName = this.editTaskName.bind(this);
+    this.filterTasks = this.filterTasks.bind(this);
   }
 
   createNewTask(taskName) {
     return {
       name: taskName,
       id: new Date().getTime(),
-      status: '',
+      status: "",
       dateCreated: new Date(),
       isCompleted: false,
       isEdit: false,
@@ -31,7 +36,10 @@ export default class App extends Component {
   deleteTask(id) {
     this.setState(({ tasks }) => {
       const index = tasks.findIndex((task) => task.id === id);
-      const newTasksList = [...tasks.slice(0, index), ...tasks.slice(index + 1)];
+      const newTasksList = [
+        ...tasks.slice(0, index),
+        ...tasks.slice(index + 1),
+      ];
 
       return {
         tasks: newTasksList,
@@ -59,43 +67,43 @@ export default class App extends Component {
     return [...arr.slice(0, index), newTask, ...arr.slice(index + 1)];
   }
 
-  onDone = (id) => {
+  onDone(id) {
     this.setState(({ tasks }) => {
       return {
-        tasks: this.changeStatus(tasks, id, 'isCompleted'),
+        tasks: this.changeStatus(tasks, id, "isCompleted"),
       };
     });
-  };
+  }
 
   filterTasks(tasks, fillter) {
     switch (fillter) {
-      case 'all':
+      case "all":
         return tasks;
-      case 'active':
+      case "active":
         return tasks.filter((task) => !task.isCompleted);
-      case 'completed':
+      case "completed":
         return tasks.filter((task) => task.isCompleted);
       default:
         return tasks;
     }
   }
 
-  onFilterChange = (filter) => {
+  onFilterChange(filter) {
     this.setState({
       filter,
     });
-  };
+  }
 
-  deleteCompleted = () => {
+  deleteCompleted() {
     this.setState(({ tasks }) => {
       const newTasksList = tasks.filter((item) => !item.isCompleted);
       return {
         tasks: newTasksList,
       };
     });
-  };
+  }
 
-  editTaskName = (id, name) => {
+  editTaskName(id, name) {
     this.setState(({ tasks }) => {
       const index = tasks.findIndex((task) => task.id === id);
       const newItem = { ...tasks[index], name };
@@ -103,7 +111,7 @@ export default class App extends Component {
         tasks: [...tasks.slice(0, index), newItem, ...tasks.slice(index + 1)],
       };
     });
-  };
+  }
 
   render() {
     const { tasks, filter } = this.state;
@@ -111,12 +119,12 @@ export default class App extends Component {
 
     return (
       <div>
-        <section className="todoapp">
-          <header className="header">
+        <section className='todoapp'>
+          <header className='header'>
             <h1>todos</h1>
             <NewTaskForm onAdd={this.addTask} />
           </header>
-          <section className="main">
+          <section className='main'>
             <TaskList
               onAdd={this.addTask}
               tasksList={visibleTasks}
