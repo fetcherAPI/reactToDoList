@@ -35,12 +35,14 @@ export class NewTaskForm extends Component {
     this.props.onAdd(taskName, totalTime);
     this.setState({
       taskName: "",
+      taskMin: "",
+      taskSec: "",
     });
   }
 
   render() {
     return (
-      <form className='new-task-form'>
+      <form className='new-task-form' onSubmit={this.handleSubmit}>
         <input
           className='new-todo'
           placeholder='What needs to be done?'
@@ -57,6 +59,7 @@ export class NewTaskForm extends Component {
           onChange={(e) => {
             this.handleChange("taskMin", +e.target.value);
           }}
+          value={this.state.taskMin}
         />
         <input
           className='new-todo-form__timer'
@@ -65,14 +68,13 @@ export class NewTaskForm extends Component {
           onChange={(e) => {
             this.handleChange("taskSec", +e.target.value);
           }}
+          value={this.state.taskSec}
         />
         <button
           className='new-todo-form__button'
           type='submit'
           onClick={this.handleSubmit}
-        >
-          save
-        </button>
+        ></button>
       </form>
     );
   }

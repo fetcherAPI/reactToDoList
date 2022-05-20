@@ -71,7 +71,11 @@ export class Task extends Component {
           <input className='toggle' type='checkbox' onClick={onDone} />
           <label>
             <span className='description'>{taskName}</span>
-            <TimerOwn dateCreated={dateCreated} totalTime={totalTime} />
+            <TimerOwn
+              dateCreated={dateCreated}
+              totalTime={totalTime}
+              isCompleted={isCompleted}
+            />
             <Timer dateCreated={dateCreated} />
           </label>
           <button className='icon icon-edit' onClick={this.editToggle}></button>

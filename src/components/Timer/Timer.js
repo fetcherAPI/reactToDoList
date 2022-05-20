@@ -14,7 +14,7 @@ export class TimerOwn extends Component {
 
   componentDidMount() {
     this.interval = setInterval(() => {
-      if (this.state.isRunning) {
+      if (this.state.isRunning && this.state.time > 0) {
         this.setState({
           time: this.state.time - 1,
         });
@@ -39,12 +39,14 @@ export class TimerOwn extends Component {
   }
 
   render() {
-    const { totalTime } = this.props;
+    const { time } = this.state;
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
     return (
       <div className='description--timer'>
         <button onClick={this.onClickPlay} className='icon-play'></button>
         <button onClick={this.onClickPause} className='icon-pause'></button>
-        <p>{this.state.time}</p>
+        <p>{`${minutes}:${seconds}`}</p>
       </div>
     );
   }
