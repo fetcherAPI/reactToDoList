@@ -1,7 +1,15 @@
 import { Component } from "react";
+import PropTypes from "prop-types";
 import "./Timer.css";
 
 export class TimerOwn extends Component {
+  static defaultProps = {
+    onAdd: () => {},
+  };
+  static propTypes = {
+    onAdd: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -22,17 +30,17 @@ export class TimerOwn extends Component {
     }, 1000);
   }
 
-  onClickPlay = () => {
+  onClickPlay() {
     this.setState({
       isRunning: true,
     });
-  };
+  }
 
-  onClickPause = () => {
+  onClickPause() {
     this.setState({
       isRunning: false,
     });
-  };
+  }
 
   componentWillUnmount() {
     clearInterval(this.interval);

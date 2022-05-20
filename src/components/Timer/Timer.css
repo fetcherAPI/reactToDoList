@@ -24,9 +24,9 @@
 }
 
 .icon-pause:after {
-  content: "⏸";
+  content: '⏸';
 }
 
 .icon-play:after {
-  content: "▶";
+  content: '▶';
 }
