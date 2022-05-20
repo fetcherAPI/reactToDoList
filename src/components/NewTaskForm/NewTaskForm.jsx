@@ -1,6 +1,6 @@
-import { Component } from 'react';
-import './newTaskForm.css';
-import PropTypes from 'prop-types';
+import { Component } from "react";
+import "./newTaskForm.css";
+import PropTypes from "prop-types";
 
 export class NewTaskForm extends Component {
   static propTypes = {
@@ -14,36 +14,65 @@ export class NewTaskForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      taskName: '',
+      taskMin: "",
+      taskSec: "",
+      taskName: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange(prop, value) {
     this.setState({
-      taskName: event.target.value,
+      [prop]: value,
     });
   }
 
   handleSubmit(event) {
+    let { taskMin, taskSec, taskName } = this.state;
+    const totalTime = taskMin * 60 + taskSec;
     event.preventDefault();
-    this.props.onAdd(this.state.taskName);
+    this.props.onAdd(taskName, totalTime);
     this.setState({
-      taskName: '',
+      taskName: "",
     });
   }
 
   render() {
     return (
-      <form className="new-task-form" onSubmit={this.handleSubmit}>
+      <form className='new-task-form'>
         <input
-          className="new-todo"
-          placeholder="What needs to be done?"
+          className='new-todo'
+          placeholder='What needs to be done?'
           autoFocus
-          onChange={this.handleChange}
+          onChange={(e) => {
+            this.handleChange("taskName", e.target.value);
+          }}
           value={this.state.taskName}
         />
+        <input
+          className='new-todo-form__timer'
+          placeholder='Min'
+          autoFocus
+          onChange={(e) => {
+            this.handleChange("taskMin", +e.target.value);
+          }}
+        />
+        <input
+          className='new-todo-form__timer'
+          placeholder='Sec'
+          autoFocus
+          onChange={(e) => {
+            this.handleChange("taskSec", +e.target.value);
+          }}
+        />
+        <button
+          className='new-todo-form__button'
+          type='submit'
+          onClick={this.handleSubmit}
+        >
+          save
+        </button>
       </form>
     );
   }

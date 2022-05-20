@@ -71,7 +71,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.new-todo {
+.new-todo,
+.new-todo-form__timer {
   padding: 16px 16px 16px 60px;
   border: none;
   background: rgba(0, 0, 0, 0.003);

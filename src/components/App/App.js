@@ -2,6 +2,8 @@ import { NewTaskForm } from "../NewTaskForm/NewTaskForm";
 import { TaskList } from "../TaskList/TaskList";
 import { Footer } from "../Footer/Footer";
 import { Component } from "react";
+import { format } from "date-fns";
+import secondsToMinutes from "date-fns/secondsToMinutes";
 
 export default class App extends Component {
   constructor(props) {
@@ -16,7 +18,7 @@ export default class App extends Component {
     this.onDone = this.onDone.bind(this);
   }
 
-  createNewTask(taskName) {
+  createNewTask(taskName, totalTime) {
     return {
       name: taskName,
       id: new Date().getTime(),
@@ -24,6 +26,7 @@ export default class App extends Component {
       dateCreated: new Date(),
       isCompleted: false,
       isEdit: false,
+      totalTime,
     };
   }
 
@@ -41,9 +44,13 @@ export default class App extends Component {
     });
   }
 
-  addTask(taskName) {
+  addTask(taskName, totalTime) {
+    console.log(taskName, totalTime);
+    const time = format(new Date(totalTime), "m:s");
+    console.log(secondsToMinutes(totalTime));
+    console.log(time);
     this.setState(({ tasks }) => {
-      const newTask = this.createNewTask(taskName);
+      const newTask = this.createNewTask(taskName, totalTime);
       let newTaskList = [...tasks, newTask];
       return {
         tasks: newTaskList,

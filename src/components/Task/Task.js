@@ -45,9 +45,16 @@ export class Task extends Component {
     this.editToggle();
   };
   render() {
-    let { taskName, onDelete, onDone, isCompleted, dateCreated, editTaskName } =
-      this.props;
-    console.log(isCompleted);
+    let {
+      taskName,
+      onDelete,
+      onDone,
+      isCompleted,
+      dateCreated,
+      editTaskName,
+      totalTime,
+    } = this.props;
+    console.log(totalTime);
     const { isEdit, newTaskName } = this.state;
 
     let className = "";
@@ -64,8 +71,8 @@ export class Task extends Component {
           <input className='toggle' type='checkbox' onClick={onDone} />
           <label>
             <span className='description'>{taskName}</span>
-            <TimerOwn dateCreated={dateCreated} />
-            <Timer dateCreated={dateCreated} isCompleted={isCompleted} />
+            <TimerOwn dateCreated={dateCreated} totalTime={totalTime} />
+            <Timer dateCreated={dateCreated} />
           </label>
           <button className='icon icon-edit' onClick={this.editToggle}></button>
           <button className='icon icon-destroy' onClick={onDelete}></button>
