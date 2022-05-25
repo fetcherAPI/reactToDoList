@@ -3,13 +3,8 @@ import PropTypes from "prop-types";
 import Task from "../Task/Task.js";
 import "./tasklist.css";
 
-export const TaskList = ({
-  tasksList,
-  onDelete,
-  onAdd,
-  onDone,
-  editTaskName,
-}) => {
+export const TaskList = (props) => {
+  const { tasksList, onDelete, onAdd, onDone, editTaskName } = props;
   console.log("tasksList", tasksList);
   return (
     <ul className='todo-list'>
@@ -32,16 +27,16 @@ export const TaskList = ({
   );
 };
 
-// TaskList.propTypes = {
-//   tasksList: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       name: PropTypes.string,
-//       isCompleted: PropTypes.bool,
-//       dateCreated: PropTypes.instanceOf(Date).isRequired,
-//     })
-//   ).isRequired,
-//   onDelete: PropTypes.func.isRequired,
-//   onAdd: PropTypes.func.isRequired,
-//   onDone: PropTypes.func.isRequired,
-// };
+TaskList.propTypes = {
+  tasksList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string,
+      isCompleted: PropTypes.bool,
+      dateCreated: PropTypes.instanceOf(Date).isRequired,
+    })
+  ).isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
+  onDone: PropTypes.func.isRequired,
+};

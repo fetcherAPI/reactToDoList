@@ -60,11 +60,9 @@ export default function App() {
   }
 
   function deleteCompleted() {
-    setTasks(({ tasks }) => {
+    setTasks(() => {
       const newTasksList = tasks.filter((item) => !item.isCompleted);
-      return {
-        tasks: newTasksList,
-      };
+      return newTasksList;
     });
   }
 
