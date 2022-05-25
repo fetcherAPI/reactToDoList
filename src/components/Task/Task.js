@@ -7,7 +7,6 @@ import { TimerOwn } from "../Timer/Timer";
 
 export function Task({
   taskName,
-  id,
   onDelete,
   onDone,
   isCompleted,
@@ -18,26 +17,17 @@ export function Task({
   const [newTaskName, setNewTaskName] = useState("");
   const [isEdit, setIsEdit] = useState(false);
 
-  // const editTask = (e) => {
-  //   // setState({
-  //   //   taskName: e.target.value,
-  //   // });
-  //   setNewTaskName(e.target.value);
-  // };
-
   const editToggle = () => {
-    // setState((state) => ({ isEdit: !state.isEdit }));
     setIsEdit(!isEdit);
   };
 
   const onChangeTaskName = (e) => {
-    // setState(() => ({ newTaskName: e.target.value }));
     setNewTaskName(e.target.value);
   };
 
-  const setNewLabel = (e, editTaskName, newTaskName) => {
+  const setNewLabel = (e) => {
     e.preventDefault();
-    editTaskName(id, newTaskName);
+    editTaskName(newTaskName);
     editToggle();
   };
 
@@ -67,7 +57,7 @@ export function Task({
       </div>
       {isEdit ? (
         <>
-          <form onSubmit={(e) => setNewLabel(e, editTaskName, newTaskName)}>
+          <form onSubmit={setNewLabel}>
             <input
               type='text'
               className='edit'

@@ -20,12 +20,8 @@ export default function App() {
   }
 
   function deleteTask(id) {
-    setTasks(() => {
-      const index = tasks.findIndex((task) => task.id === id);
-      return {
-        tasks: [...tasks.slice(0, index), ...tasks.slice(index + 1)],
-      };
-    });
+    const index = tasks.findIndex((task) => task.id === id);
+    setTasks(() => [...tasks.slice(0, index), ...tasks.slice(index + 1)]);
   }
 
   function addTask(taskName, totalTime) {
@@ -73,13 +69,13 @@ export default function App() {
   }
 
   function editTaskName(id, name) {
-    setTasks(() => {
-      const index = tasks.findIndex((task) => task.id === id);
-      const newItem = { ...tasks[index], name };
-      return {
-        tasks: [...tasks.slice(0, index), newItem, ...tasks.slice(index + 1)],
-      };
-    });
+    const index = tasks.findIndex((task) => task.id === id);
+    const newItem = { ...tasks[index], name };
+    setTasks(() => [
+      ...tasks.slice(0, index),
+      newItem,
+      ...tasks.slice(index + 1),
+    ]);
   }
 
   const visibleTasks = filterTasks(tasks, filter);
