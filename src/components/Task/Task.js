@@ -1,90 +1,86 @@
-import './Task.css';
-import { formatDistanceToNow } from 'date-fns';
-import { Component } from 'react';
-import PropTypes from 'prop-types';
-import { TimerOwn } from '../Timer/Timer';
+import "./Task.css";
+import { formatDistanceToNow } from "date-fns";
+import { Component } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
+import { TimerOwn } from "../Timer/Timer";
 
-export class Task extends Component {
-  static propTypes = {
-    taskName: PropTypes.string.isRequired,
-    isCompleted: PropTypes.bool,
-    dateCreated: PropTypes.instanceOf(Date),
-    onDelete: PropTypes.func.isRequired,
-    onDone: PropTypes.func.isRequired,
-    onEdit: PropTypes.func,
-    onAdd: PropTypes.func.isRequired,
+export function Task({
+  taskName,
+  id,
+  onDelete,
+  onDone,
+  isCompleted,
+  dateCreated,
+  editTaskName,
+  totalTime,
+}) {
+  const [newTaskName, setNewTaskName] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
+
+  // const editTask = (e) => {
+  //   // setState({
+  //   //   taskName: e.target.value,
+  //   // });
+  //   setNewTaskName(e.target.value);
+  // };
+
+  const editToggle = () => {
+    // setState((state) => ({ isEdit: !state.isEdit }));
+    setIsEdit(!isEdit);
   };
 
-  static defaultProps = {
-    isCompleted: false,
-    dateCreated: new Date(),
+  const onChangeTaskName = (e) => {
+    // setState(() => ({ newTaskName: e.target.value }));
+    setNewTaskName(e.target.value);
   };
 
-  state = {
-    newTaskName: '',
-    isEdit: false,
-  };
-
-  editTask = (e) => {
-    this.setState({
-      taskName: e.target.value,
-    });
-  };
-
-  editToggle = () => {
-    this.setState((state) => ({ isEdit: !state.isEdit }));
-  };
-
-  onChangeTaskName = (e) => {
-    this.setState(() => ({ newTaskName: e.target.value }));
-  };
-
-  setNewLabel = (e, editTaskName, newTaskName) => {
+  const setNewLabel = (e, editTaskName, newTaskName) => {
     e.preventDefault();
-    editTaskName(newTaskName);
-    this.editToggle();
+    editTaskName(id, newTaskName);
+    editToggle();
   };
-  render() {
-    let { taskName, onDelete, onDone, isCompleted, dateCreated, editTaskName, totalTime } = this.props;
-    const { isEdit, newTaskName } = this.state;
 
-    let className = '';
-    if (isCompleted) {
-      className += 'completed';
-    }
-    if (isEdit) {
-      className += ' editing';
-    }
-
-    return (
-      <li className={className}>
-        <div className="view">
-          <input className="toggle" type="checkbox" onClick={onDone} />
-          <label>
-            <span className="description">{taskName}</span>
-            <TimerOwn dateCreated={dateCreated} totalTime={totalTime} isCompleted={isCompleted} />
-            <Timer dateCreated={dateCreated} />
-          </label>
-          <button className="icon icon-edit" onClick={this.editToggle}></button>
-          <button className="icon icon-destroy" onClick={onDelete}></button>
-        </div>
-        {isEdit ? (
-          <>
-            <form onSubmit={(e) => this.setNewLabel(e, editTaskName, newTaskName)}>
-              <input
-                type="text"
-                className="edit"
-                defaultValue={taskName}
-                onChange={this.onChangeTaskName}
-                onClick={this.onChangeTaskName}
-                autoFocus
-              />
-            </form>
-          </>
-        ) : null}
-      </li>
-    );
+  let className = "";
+  if (isCompleted) {
+    className += "completed";
   }
+  if (isEdit) {
+    className += " editing";
+  }
+
+  return (
+    <li className={className}>
+      <div className='view'>
+        <input className='toggle' type='checkbox' onClick={onDone} />
+        <label>
+          <span className='description'>{taskName}</span>
+          <TimerOwn
+            dateCreated={dateCreated}
+            totalTime={totalTime}
+            isCompleted={isCompleted}
+          />
+          <Timer dateCreated={dateCreated} />
+        </label>
+        <button className='icon icon-edit' onClick={editToggle}></button>
+        <button className='icon icon-destroy' onClick={onDelete}></button>
+      </div>
+      {isEdit ? (
+        <>
+          <form onSubmit={(e) => setNewLabel(e, editTaskName, newTaskName)}>
+            <input
+              type='text'
+              className='edit'
+              defaultValue={taskName}
+              onChange={onChangeTaskName}
+              onClick={onChangeTaskName}
+              autoFocus
+            />
+          </form>
+        </>
+      ) : null}
+    </li>
+  );
 }
 
 class Timer extends Component {
@@ -109,8 +105,27 @@ class Timer extends Component {
 
   render() {
     let { dateCreated } = this.props;
-    return <span className="created">created {formatDistanceToNow(dateCreated, { addSuffix: true })}</span>;
+    return (
+      <span className='created'>
+        created {formatDistanceToNow(dateCreated, { addSuffix: true })}
+      </span>
+    );
   }
 }
+
+Task.propTypes = {
+  taskName: PropTypes.string.isRequired,
+  isCompleted: PropTypes.bool,
+  dateCreated: PropTypes.instanceOf(Date),
+  onDelete: PropTypes.func.isRequired,
+  onDone: PropTypes.func.isRequired,
+  onEdit: PropTypes.func,
+  onAdd: PropTypes.func.isRequired,
+};
+
+Task.defaultProps = {
+  isCompleted: false,
+  dateCreated: new Date(),
+};
 
 export default Task;

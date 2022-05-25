@@ -1,14 +1,22 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import Task from '../Task/Task.js';
-import './tasklist.css';
+import Task from "../Task/Task.js";
+import "./tasklist.css";
 
-export let TaskList = ({ tasksList, onDelete, onAdd, onDone, editTaskName }) => {
+export const TaskList = ({
+  tasksList,
+  onDelete,
+  onAdd,
+  onDone,
+  editTaskName,
+}) => {
+  console.log("tasksList", tasksList);
   return (
-    <ul className="todo-list">
+    <ul className='todo-list'>
       {tasksList.map((task) => (
         <Task
           key={task.id}
+          id={task.id}
           taskName={task.name}
           isCompleted={task.isCompleted}
           isEdit={task.isEdit}
@@ -24,16 +32,16 @@ export let TaskList = ({ tasksList, onDelete, onAdd, onDone, editTaskName }) => 
   );
 };
 
-TaskList.propTypes = {
-  tasksList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      isCompleted: PropTypes.bool.isRequired,
-      dateCreated: PropTypes.instanceOf(Date).isRequired,
-    })
-  ).isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onAdd: PropTypes.func.isRequired,
-  onDone: PropTypes.func.isRequired,
-};
+// TaskList.propTypes = {
+//   tasksList: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.number.isRequired,
+//       name: PropTypes.string,
+//       isCompleted: PropTypes.bool,
+//       dateCreated: PropTypes.instanceOf(Date).isRequired,
+//     })
+//   ).isRequired,
+//   onDelete: PropTypes.func.isRequired,
+//   onAdd: PropTypes.func.isRequired,
+//   onDone: PropTypes.func.isRequired,
+// };
