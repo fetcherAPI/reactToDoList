@@ -1,6 +1,6 @@
 import "./Task.css";
 import { formatDistanceToNow } from "date-fns";
-import { Component } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { TimerOwn } from "../Timer/Timer";
@@ -73,36 +73,6 @@ export function Task({
   );
 }
 
-class Timer extends Component {
-  state = {
-    time: 0,
-  };
-
-  componentDidMount() {
-    this.setState({
-      time: formatDistanceToNow(this.props.dateCreated),
-    });
-    this.interval = setInterval(() => {
-      this.setState({
-        time: formatDistanceToNow(this.props.dateCreated),
-      });
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
-  render() {
-    let { dateCreated } = this.props;
-    return (
-      <span className='created'>
-        created {formatDistanceToNow(dateCreated, { addSuffix: true })}
-      </span>
-    );
-  }
-}
-
 Task.propTypes = {
   taskName: PropTypes.string.isRequired,
   isCompleted: PropTypes.bool,
@@ -117,5 +87,20 @@ Task.defaultProps = {
   isCompleted: false,
   dateCreated: new Date(),
 };
+
+function Timer({ dateCreated }) {
+  const [time, setTime] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(setTime, 1000);
+    return () => clearInterval(interval);
+  }, [time]);
+
+  return (
+    <span className='created'>
+      created {formatDistanceToNow(dateCreated, { addSuffix: true })}
+    </span>
+  );
+}
 
 export default Task;
